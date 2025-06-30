@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Tragamonedas</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #111;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .slot-machine {
+      background: #222;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
+    }
+    .reels {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+    button {
+      background: #f1c40f;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #d4ac0d;
+    }
+    .result {
+      font-size: 1.5rem;
+      margin-top: 10px;
+    }
+    .reflection {
+      margin-top: 30px;
+      background: #333;
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 1rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="slot-machine">
+    <div class="reels" id="reels">🎲 🎲 🎲</div>
+    <button onclick="spin()">Girar</button>
+    <div class="result" id="result"></div>
+    <div class="reflection" id="reflection"></div>
+  </div>
+
+  <script>
+    const symbols = ['🍒', '🍋', '🔔', '💎', '🍇', '🍉'];
+    const reflections = [
+      “La adrenalina del juego puede parecer divertida, pero no debemos olvidar que el casino está diseñado para hacernos perder.”,
+      “Muchos adolescentes creen que ganar en el casino es cuestión de suerte, pero en realidad, es un negocio que vive de tus pérdidas.”,
+      “El juego puede parecer inofensivo, pero cuando se vuelve una costumbre, afecta la vida emocional, escolar y familiar.”,
+      “‘Una más y gano’ es la frase que repiten los que están cayendo en la trampa. Aprendé a parar.”,
+      “El juego compulsivo empieza con la ilusión de ganar rápido. Pero el casino nunca pierde. Pensá antes de apostar.”
+    ];
+
+    let spins = 0;
+
+    function spin() {
+      const r1 = symbols[Math.floor(Math.random() * symbols.length)];
+      const r2 = symbols[Math.floor(Math.random() * symbols.length)];
+      const r3 = symbols[Math.floor(Math.random() * symbols.length)];
+      document.getElementById('reels').textContent = `${r1} ${r2} ${r3}`;
+      spins++;
+      const result = document.getElementById('result');
+      const reflectionBox = document.getElementById('reflection');
+
+      if (r1 === r2 && r2 === r3) {
+        result.textContent = '¡Ganaste!';
+      } else {
+        result.textContent = 'No ganaste. Intentá otra vez...';
+      }
+
+      if (spins === 2) {
+        const randomReflection = reflections[Math.floor(Math.random() * reflections.length)];
+        reflectionBox.innerHTML = `<strong>Reflexión final:</strong><br>${randomReflection}`;
+        reflectionBox.style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
